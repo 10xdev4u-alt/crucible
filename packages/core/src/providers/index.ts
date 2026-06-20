@@ -1,4 +1,5 @@
 export { AnthropicProvider, type AnthropicProviderOptions } from './anthropic.js';
+export { BedrockProvider, type BedrockProviderOptions } from './bedrock.js';
 export { GeminiProvider, type GeminiProviderOptions } from './gemini.js';
 export {
   FetchHttpClient,
