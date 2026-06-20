@@ -1,5 +1,5 @@
 /** A simple file watcher that polls a directory for changes. */
-import { existsSync, statSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 export interface WatchEvent {
@@ -60,7 +60,7 @@ export class FileWatcher {
 
   private snapshot(): void {
     if (!existsSync(this.root)) return;
-    this.walk(this.root);
+    this.walk(this.root, this.state);
   }
 
   private walk(dir: string, target: Map<string, FileState>): void {
@@ -72,7 +72,7 @@ export class FileWatcher {
     }
     for (const entry of entries) {
       const p = join(dir, entry.name);
-      if (this.ignore && this.ignore(p)) continue;
+      if (this.ignore?.(p)) continue;
       if (entry.isDirectory()) this.walk(p, target);
       else if (entry.isFile()) this.record(p, target);
     }
@@ -83,7 +83,7 @@ export class FileWatcher {
       const st = statSync(p);
       target.set(p, { mtimeMs: st.mtimeMs, size: st.size });
     } catch {
-      target.delete(p);
+      if (target.delete) target.delete(p);
     }
   }
 
