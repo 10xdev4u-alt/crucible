@@ -1,4 +1,6 @@
 import type { ReviewResult } from '../types/review-result.js';
+import { CsvFormatter } from './csv.js';
+import { GitLabFormatter } from './gitlab.js';
 import { HtmlFormatter } from './html.js';
 import { JsonFormatter } from './json.js';
 import { JUnitFormatter } from './junit.js';
@@ -7,7 +9,7 @@ import { SarifFormatter } from './sarif.js';
 import type { Formatter } from './text.js';
 import { TextFormatter } from './text.js';
 
-export type Format = 'text' | 'json' | 'sarif' | 'markdown' | 'html' | 'junit';
+export type Format = 'text' | 'json' | 'sarif' | 'markdown' | 'html' | 'junit' | 'csv' | 'gitlab';
 
 export function getFormatter(
   format: Format,
@@ -26,6 +28,10 @@ export function getFormatter(
       return new HtmlFormatter();
     case 'junit':
       return new JUnitFormatter();
+    case 'csv':
+      return new CsvFormatter();
+    case 'gitlab':
+      return new GitLabFormatter();
   }
 }
 
