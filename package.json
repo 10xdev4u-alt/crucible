@@ -1,0 +1,20 @@
+{
+  "name": "crucible",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Multi-agent code review orchestrator",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "pnpm -r run typecheck",
+    "clean": "pnpm -r exec rm -rf dist node_modules .tsbuildinfo"
+  }
+}
