@@ -294,6 +294,9 @@ const copyAssets = (): void => {
     cpSync(favicon, join(DIST_DIR, 'favicon.svg'));
     console.log('  copied favicon.svg');
   }
+  // .nojekyll tells GitHub Pages to skip Jekyll processing
+  writeFileSync(join(DIST_DIR, '.nojekyll'), '', 'utf8');
+  console.log('  wrote .nojekyll');
 };
 
 export const build = async (): Promise<void> => {
