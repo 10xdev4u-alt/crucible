@@ -12,6 +12,7 @@ export { NamingAgent } from './naming.js';
 export { ObservabilityAgent } from './observability.js';
 export { parseStructuredFindings } from './parser.js';
 export { PerformanceAgent } from './performance.js';
+export { SecretsAgent } from './secrets.js';
 export { SecurityAgent } from './security.js';
 export { StyleAgent } from './style.js';
 export { TestCoverageAgent } from './test-coverage.js';
