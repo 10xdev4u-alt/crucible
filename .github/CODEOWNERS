@@ -1,0 +1,28 @@
+# Code owners
+# See https://docs.github.com/en/repositories/creating-and-managing-repositories/about-code-owners
+
+# Default owners for everything
+*                          @10xdev4u-alt
+
+# Core library
+/packages/core/            @10xdev4u-alt
+
+# CLI
+/packages/cli/             @10xdev4u-alt
+
+# Documentation
+/packages/docs-site/       @10xdev4u-alt
+/docs/                     @10xdev4u-alt
+*.md                       @10xdev4u-alt
+
+# CI/CD
+/.github/                  @10xdev4u-alt
+
+# Security-sensitive files
+/SECURITY.md               @10xdev4u-alt
+/package.json              @10xdev4u-alt
+/pnpm-workspace.yaml       @10xdev4u-alt
+
+# Generated files (require explicit approval to modify)
+/packages/*/dist/          @10xdev4u-alt
+/packages/docs-site/dist/  @10xdev4u-alt
