@@ -21,10 +21,11 @@ export function parseStructuredFindings(content: string, agentId: string): Findi
     const bodyMatch = chunk.match(FINDING_BODY);
     const path = fileMatch?.[1]?.trim();
     const lineStr = fileMatch?.[2];
-    const line = lineStr ? Number.parseInt(lineStr, 10) : undefined;
+    const lineNum = lineStr ? Number.parseInt(lineStr, 10) : NaN;
+    const line: number | null = Number.isFinite(lineNum) ? lineNum : null;
     const ruleId = ruleMatch?.[1];
     const message = bodyMatch?.[1]?.trim() ?? title;
-    out.push({
+    const finding: Finding = {
       id: `${agentId}-${out.length}-${Math.random().toString(36).slice(2, 8)}`,
       agentId,
       category: 'best-practice',
@@ -33,11 +34,14 @@ export function parseStructuredFindings(content: string, agentId: string): Findi
       message,
       confidence: 0.8,
       createdAt: new Date().toISOString(),
-      ruleId,
-      ...(path
-        ? { location: { file: path, ...(Number.isFinite(line) ? { line: line as number } : {}) } }
-        : {}),
-    });
+    };
+    if (ruleId) finding.ruleId = ruleId;
+    if (path) {
+      const location: { file: string; line?: number } = { file: path };
+      if (line !== null) location.line = line;
+      finding.location = location;
+    }
+    out.push(finding);
   }
   return out;
 }

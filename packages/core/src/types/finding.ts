@@ -3,7 +3,7 @@ import type { SeverityLevel } from './severity.js';
 /** A location within a file. Line is 1-based, column is 0-based. */
 export interface FileLocation {
   file: string;
-  line: number;
+  line?: number;
   column?: number;
   endLine?: number;
   endColumn?: number;
