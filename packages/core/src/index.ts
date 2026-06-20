@@ -6,6 +6,7 @@
 
 export * from './agents/index.js';
 export * from './cache/index.js';
+export * from './lsp/index.js';
 export * from './orchestrator/index.js';
 export * from './output/index.js';
 export * from './plugins/index.js';
