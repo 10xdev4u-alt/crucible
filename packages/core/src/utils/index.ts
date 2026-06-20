@@ -4,4 +4,6 @@ export * from './histogram.js';
 export * from './rate-limit.js';
 export * from './sandbox.js';
 export * from './scheduler.js';
+export * from './semaphore.js';
+export * from './stopwatch.js';
 export * from './tokens.js';
