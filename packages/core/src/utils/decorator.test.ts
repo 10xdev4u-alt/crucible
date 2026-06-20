@@ -1,82 +1,67 @@
 import { describe, expect, it, vi } from 'vitest';
-import { retryable } from './decorator.js';
+import { withRetry } from './decorator.js';
 
-describe('retryable decorator', () => {
+describe('withRetry', () => {
   it('succeeds on first try', async () => {
-    class T {
-      @retryable({ attempts: 3 })
-      async run() {
-        return 'ok';
-      }
-    }
-    const t = new T();
-    expect(await t.run()).toBe('ok');
+    const fn = async () => 'ok';
+    expect(await withRetry(fn, { attempts: 3, delayMs: 1 })()).toBe('ok');
   });
 
   it('retries on failure and eventually succeeds', async () => {
     let n = 0;
-    class T {
-      @retryable({ attempts: 3, delayMs: 1 })
-      async run() {
-        n += 1;
-        if (n < 2) throw new Error('fail');
-        return 'ok';
-      }
-    }
-    const t = new T();
-    expect(await t.run()).toBe('ok');
+    const fn = async () => {
+      n += 1;
+      if (n < 2) throw new Error('fail');
+      return 'ok';
+    };
+    expect(await withRetry(fn, { attempts: 3, delayMs: 1 })()).toBe('ok');
     expect(n).toBe(2);
   });
 
   it('throws after max attempts', async () => {
-    class T {
-      @retryable({ attempts: 2, delayMs: 1 })
-      async run() {
-        throw new Error('always');
-      }
-    }
-    const t = new T();
-    await expect(t.run()).rejects.toThrow('always');
+    const fn = async () => {
+      throw new Error('always');
+    };
+    await expect(withRetry(fn, { attempts: 2, delayMs: 1 })()).rejects.toThrow('always');
   });
 
   it('calls onError for each attempt', async () => {
     const onError = vi.fn();
-    class T {
-      @retryable({ attempts: 3, delayMs: 1, onError })
-      async run() {
-        throw new Error('x');
-      }
-    }
-    const t = new T();
-    await expect(t.run()).rejects.toThrow();
+    const fn = async () => {
+      throw new Error('x');
+    };
+    await expect(withRetry(fn, { attempts: 3, delayMs: 1, onError })()).rejects.toThrow();
     expect(onError).toHaveBeenCalledTimes(2);
   });
 
   it('uses linear backoff', async () => {
     let n = 0;
-    class T {
-      @retryable({ attempts: 3, delayMs: 5, backoff: 'linear' })
-      async run() {
-        n += 1;
-        if (n < 2) throw new Error('fail');
-        return n;
-      }
-    }
-    const t = new T();
-    expect(await t.run()).toBe(2);
+    const fn = async () => {
+      n += 1;
+      if (n < 2) throw new Error('fail');
+      return n;
+    };
+    expect(await withRetry(fn, { attempts: 3, delayMs: 5, backoff: 'linear' })()).toBe(2);
   });
 
   it('uses constant backoff', async () => {
     let n = 0;
-    class T {
-      @retryable({ attempts: 2, delayMs: 1, backoff: 'constant' })
+    const fn = async () => {
+      n += 1;
+      if (n < 2) throw new Error('fail');
+      return n;
+    };
+    expect(await withRetry(fn, { attempts: 2, delayMs: 1, backoff: 'constant' })()).toBe(2);
+  });
+
+  it('preserves `this` context', async () => {
+    const obj = {
+      value: 42,
       async run() {
-        n += 1;
-        if (n < 2) throw new Error('fail');
-        return n;
-      }
-    }
-    const t = new T();
-    expect(await t.run()).toBe(2);
+        return this.value;
+      },
+    };
+    const wrapped = withRetry(obj.run, { attempts: 2, delayMs: 1 });
+    expect(await wrapped.call(obj)).toBe(42);
   });
 });
