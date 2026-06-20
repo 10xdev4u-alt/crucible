@@ -1,7 +1,10 @@
 import { getBoolean, getString, parseArgs } from './argv.js';
 import { cmdAgents } from './commands/agents.js';
+import { cmdCache } from './commands/cache.js';
+import { cmdHook } from './commands/hook.js';
 import { cmdInit } from './commands/init.js';
 import { cmdReview } from './commands/review.js';
+import { cmdStatus } from './commands/status.js';
 import { cmdVersion } from './commands/version.js';
 
 const HELP = `crucible — multi-agent code review orchestrator
@@ -12,6 +15,9 @@ Commands:
   review [path]    Review a directory, file, or diff
   init             Initialize a .crucible.json config file
   agents           List available agents
+  status [path]    Show repo status and pending changes
+  cache <cmd>      Manage the local cache (info, list, clear)
+  hook install     Install a pre-commit hook
   version          Show the version
   help             Show this help
 
@@ -40,6 +46,12 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdInit(args.flags);
     case 'agents':
       return cmdAgents(args.flags);
+    case 'status':
+      return cmdStatus(rest);
+    case 'cache':
+      return cmdCache(rest, args.flags);
+    case 'hook':
+      return cmdHook(rest);
     case 'version':
     case '--version':
     case '-v':
