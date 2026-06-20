@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "project": { "name": "lax", "root": "." },
+  "agents": [
+    { "id": "security", "weight": 1 },
+    { "id": "style", "weight": 1 },
+    { "id": "performance", "weight": 1 }
+  ],
+  "providers": [{ "id": "anthropic", "defaultModel": "claude-haiku-4-5" }],
+  "output": { "format": "text", "destination": "stdout", "color": true, "verbose": false },
+  "cache": { "enabled": true, "kind": "memory", "ttlSeconds": 3600 },
+  "runtime": { "parallelism": 3, "timeoutMs": 60000, "retries": 1 }
+}

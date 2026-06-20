@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "project": { "name": "ci", "root": "." },
+  "agents": [
+    { "id": "security", "weight": 2 },
+    { "id": "performance", "weight": 1 },
+    { "id": "api-contract", "weight": 2 },
+    { "id": "test-coverage", "weight": 1.5 },
+    { "id": "dependency", "weight": 1 }
+  ],
+  "providers": [{ "id": "anthropic", "defaultModel": "claude-sonnet-4-5" }],
+  "output": { "format": "sarif", "destination": "file", "filePath": "./crucible.sarif", "color": false, "verbose": false },
+  "cache": { "enabled": true, "kind": "file", "path": "./.crucible-cache", "ttlSeconds": 86400 },
+  "runtime": { "parallelism": 4, "timeoutMs": 90000, "retries": 2 }
+}
