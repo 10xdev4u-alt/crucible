@@ -58,8 +58,8 @@ describe('parseDiff', () => {
   it('marks hunks with add/remove/context lines', () => {
     const r = parseDiff(SAMPLE, 'a', 'b');
     const lines = r.files[0]?.hunks[0]?.lines ?? [];
-    expect(lines.some((l) => l.kind === 'add')).toBe(true);
-    expect(lines.some((l) => l.kind === 'remove')).toBe(true);
-    expect(lines.some((l) => l.kind === 'context')).toBe(true);
+    expect(lines.some((l: { kind: string }) => l.kind === 'add')).toBe(true);
+    expect(lines.some((l: { kind: string }) => l.kind === 'remove')).toBe(true);
+    expect(lines.some((l: { kind: string }) => l.kind === 'context')).toBe(true);
   });
 });
