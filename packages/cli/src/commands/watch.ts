@@ -5,8 +5,6 @@ import { FileWatcher, getFormatter, type Format, type ReviewResult } from '@cruc
 import { getList, getString } from '../argv.js';
 import { cmdReview } from './review.js';
 
-void Orchestrator;
-
 export async function cmdWatch(positionals: string[], flags: Record<string, string | boolean | string[]>): Promise<number> {
   const root = resolve(process.cwd(), positionals[0] ?? '.');
   const exclude = getList(flags, 'exclude');
