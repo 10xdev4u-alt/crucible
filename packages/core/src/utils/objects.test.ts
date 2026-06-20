@@ -27,7 +27,7 @@ describe('deepMerge', () => {
   });
 
   it('merges deep', () => {
-    const merged = deepMerge<{ a: { x: number; y: number; z?: number } }>(
+    const merged = deepMerge<{ a: { x?: number; y?: number; z?: number } }>(
       { a: { x: 1, y: 2 } },
       { a: { y: 3, z: 4 } },
     );
