@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { EventBus } from './event-bus.js';
 
-interface Events {
+interface Events extends Record<string, unknown> {
   ping: { value: number };
   error: { message: string };
 }
