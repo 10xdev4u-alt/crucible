@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ChangeSet, FileDiff, Hunk } from '@crucible/core';
 
-const UNIFIED_DIFF_HEADER = /^diff --git a\/(.+?) b\/(.+?)$/;
+const UNIFIED_DIFF_HEADER = /^diff --git [aci]\/(.+?) [bwci]\/(.+?)$/;
 const NEW_FILE_MODE = /^new file mode/;
 const DELETED_FILE_MODE = /^deleted file mode/;
 const RENAME_FROM = /^rename from (.+)$/;

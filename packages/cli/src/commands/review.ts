@@ -205,11 +205,8 @@ export async function cmdReview(
 
 function mergeChanges(
   a: ReturnType<typeof getStagedDiff>,
-  b: ReturnType<typeof getTypeofgetWorkingTreeDiff>,
+  b: ReturnType<typeof getWorkingTreeDiff>,
 ) {
   return a.files.length > 0 ? a : b;
-}
-function getTypeofgetWorkingTreeDiff() {
-  return getWorkingTreeDiff('.');
 }
 void ProviderRouter; // suppress unused
