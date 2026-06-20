@@ -10,6 +10,7 @@ import { cmdInit } from './commands/init.js';
 import { cmdReview } from './commands/review.js';
 import { cmdSchema } from './commands/schema.js';
 import { cmdStatus } from './commands/status.js';
+import { cmdTrace } from './commands/trace.js';
 import { cmdVersion } from './commands/version.js';
 
 const HELP = `crucible — multi-agent code review orchestrator
@@ -21,6 +22,7 @@ Commands:
   check [path]     Review and produce a PR summary (markdown + json)
   dry-run [path]   Review without writing any output
   fix [path]       Review and auto-apply safe fixes
+  trace [path]     Review with detailed per-agent timing
   diff [path]      Print the parsed git diff as JSON
   init             Initialize a .crucible.json config file
   agents           List available agents
@@ -58,6 +60,8 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdAgents(args.flags);
     case 'status':
       return cmdStatus(rest);
+    case 'trace':
+      return cmdTrace(rest, args.flags);
     case 'cache':
       return cmdCache(rest, args.flags);
     case 'check':
