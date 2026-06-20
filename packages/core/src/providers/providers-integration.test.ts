@@ -1,19 +1,36 @@
 import { describe, expect, it } from 'vitest';
+import { ProviderRegistry } from '../registry/provider-registry.js';
 import { AnthropicProvider } from './anthropic.js';
 import { GeminiProvider } from './gemini.js';
-import { OllamaProvider } from './ollama.js';
-import { OpenAICompatibleProvider } from './openai-compatible.js';
-import { OpenAIProvider } from './openai.js';
-import { ProviderRouter } from './router.js';
-import { ProviderRegistry } from '../registry/provider-registry.js';
 import { InMemoryHttpClient } from './http.js';
+import { OllamaProvider } from './ollama.js';
+import { OpenAIProvider } from './openai.js';
+import { OpenAICompatibleProvider } from './openai-compatible.js';
+import { ProviderRouter } from './router.js';
 
 const dummy = (id: string) => ({
   info: () => ({
     id,
     name: id,
-    models: [{ id: `${id}-m1`, provider: id, contextWindow: 100_000, maxOutputTokens: 4_000, supportsTools: true, supportsStreaming: true, supportsVision: false }],
-    capabilities: { streaming: false, tools: false, vision: false, parallelToolCalls: false, systemPrompt: true, jsonMode: false },
+    models: [
+      {
+        id: `${id}-m1`,
+        provider: id,
+        contextWindow: 100_000,
+        maxOutputTokens: 4_000,
+        supportsTools: true,
+        supportsStreaming: true,
+        supportsVision: false,
+      },
+    ],
+    capabilities: {
+      streaming: false,
+      tools: false,
+      vision: false,
+      parallelToolCalls: false,
+      systemPrompt: true,
+      jsonMode: false,
+    },
   }),
   complete: async () => ({ content: `from ${id}`, model: 'm', finishReason: 'stop' as const }),
 });
@@ -48,13 +65,28 @@ describe('ProviderRouter integration', () => {
 
 describe('All providers expose the Provider interface', () => {
   const providers = [
-    { name: 'Anthropic', ctor: () => new AnthropicProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }) },
-    { name: 'OpenAI', ctor: () => new OpenAIProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }) },
-    { name: 'Gemini', ctor: () => new GeminiProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }) },
+    {
+      name: 'Anthropic',
+      ctor: () => new AnthropicProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }),
+    },
+    {
+      name: 'OpenAI',
+      ctor: () => new OpenAIProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }),
+    },
+    {
+      name: 'Gemini',
+      ctor: () => new GeminiProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient() }),
+    },
     { name: 'Ollama', ctor: () => new OllamaProvider({ httpClient: new InMemoryHttpClient() }) },
     {
       name: 'OpenAICompatible',
-      ctor: () => new OpenAICompatibleProvider({ id: 'x', name: 'x', models: [{ id: 'm' }], httpClient: new InMemoryHttpClient() }),
+      ctor: () =>
+        new OpenAICompatibleProvider({
+          id: 'x',
+          name: 'x',
+          models: [{ id: 'm' }],
+          httpClient: new InMemoryHttpClient(),
+        }),
     },
   ];
 

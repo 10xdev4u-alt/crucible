@@ -4,7 +4,19 @@
  *
  * Run `crucible --help` to see available commands.
  */
+import { CLI_BANNER, CLI_BANNER_MINI, VERSION } from './banner.js';
 import { run } from './program.js';
+
+// Show banner on version
+if (process.argv.includes('--version') || process.argv.includes('-v')) {
+  console.log(CLI_BANNER);
+  console.log(`v${VERSION}`);
+  process.exit(0);
+}
+
+if (process.argv.includes('--help') || process.argv.includes('-h') || process.argv.length === 2) {
+  console.log(CLI_BANNER_MINI);
+}
 
 run(process.argv.slice(2)).then(
   (code: number) => process.exit(code),

@@ -9,9 +9,7 @@
     { "id": "naming", "weight": 0.5 },
     { "id": "architecture", "weight": 1.5 }
   ],
-  "providers": [
-    { "id": "anthropic", "defaultModel": "claude-sonnet-4-5" }
-  ],
+  "providers": [{ "id": "anthropic", "defaultModel": "claude-sonnet-4-5" }],
   "output": { "format": "text", "color": true, "verbose": false },
   "cache": { "enabled": true, "kind": "memory", "ttlSeconds": 3600 },
   "runtime": { "parallelism": 3, "timeoutMs": 60000, "retries": 1 }

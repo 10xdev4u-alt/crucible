@@ -16,7 +16,7 @@
 import { writeFile } from 'node:fs/promises';
 
 // INTENTIONAL: Hardcoded secret for the secrets agent to find.
-const API_KEY = 'sk-1234567890abcdefghijklmnop';
+const _API_KEY = 'sk-1234567890abcdefghijklmnop';
 
 // INTENTIONAL: SQL injection for the security agent.
 export async function getUser(name: string): Promise<unknown> {
