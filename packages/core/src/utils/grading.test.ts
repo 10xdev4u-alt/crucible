@@ -16,9 +16,7 @@ describe('grading', () => {
     expect(riskScore([{ severity: 'info', confidence: 1 }])).toBe(1);
     expect(riskScore([{ severity: 'blocker', confidence: 1 }])).toBe(25);
     expect(
-      riskScore(
-        Array.from({ length: 20 }, () => ({ severity: 'blocker', confidence: 1 })),
-      ),
+      riskScore(Array.from({ length: 20 }, () => ({ severity: 'blocker', confidence: 1 }))),
     ).toBe(100);
   });
 

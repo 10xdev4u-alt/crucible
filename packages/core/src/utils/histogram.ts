@@ -29,7 +29,13 @@ export class Histogram {
   }
 
   /** Render as a horizontal bar chart for the terminal. */
-  render(options: { max?: number; width?: number; sort?: (a: [string, number], b: [string, number]) => number } = {}): string {
+  render(
+    options: {
+      max?: number;
+      width?: number;
+      sort?: (a: [string, number], b: [string, number]) => number;
+    } = {},
+  ): string {
     const width = options.width ?? 30;
     const max = options.max ?? Math.max(1, ...this.counts.values());
     const entries = [...this.counts.entries()];

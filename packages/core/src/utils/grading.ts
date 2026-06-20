@@ -25,7 +25,8 @@ export function riskScore(findings: readonly { severity: string; confidence: num
 /** A short human-friendly summary of the review. */
 export function summarize(findingsCount: number, criticalCount: number, score: number): string {
   if (findingsCount === 0) return 'Clean review. No issues found.';
-  if (criticalCount > 0) return `${criticalCount} critical issue${criticalCount === 1 ? '' : 's'} need attention.`;
+  if (criticalCount > 0)
+    return `${criticalCount} critical issue${criticalCount === 1 ? '' : 's'} need attention.`;
   if (score > 30) return 'Significant findings. Review carefully.';
   if (score > 10) return 'A few findings worth addressing.';
   return 'Minor findings only.';
