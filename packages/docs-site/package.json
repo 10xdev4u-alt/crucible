@@ -6,6 +6,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsx src/build.ts",
+    "build:api": "tsx src/generate-api.ts",
     "dev": "tsx watch src/build.ts",
     "serve": "node scripts/serve.mjs",
     "test": "vitest run",

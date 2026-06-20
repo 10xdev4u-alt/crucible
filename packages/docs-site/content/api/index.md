@@ -1,28 +1,38 @@
 ---
 title: API reference
-description: Programmatic API
+description: Auto-generated reference for every exported symbol
 order: 0
 category: API
 ---
 
 # API reference
 
-Use Crucible programmatically. See [Library API](/docs/api/) for the full guide.
+This page is generated from the source code on every build. It lists every exported symbol from `@crucible/core` with its kind and source location.
 
-## Quick start
+To regenerate: `pnpm --filter @crucible/docs-site run build:api`.
 
-```ts
-import { Orchestrator, AgentRegistry, AnthropicProvider, /* ... */ } from "@crucible/core";
+See the full table below.
 
-const provider = new AnthropicProvider({ apiKey: process.env.ANTHROPIC_API_KEY! });
-const caller = new ProviderLLMCaller(provider);
+[→ Go to the generated reference →](/docs/api-reference/)
 
-const agents = new AgentRegistry();
-agents.register(new SecurityAgent(caller));
-agents.register(new PerformanceAgent(caller));
+## How to read the table
 
-const orch = new Orchestrator(agents);
-const result = await orch.review(request, context);
-```
+| Column | Meaning |
+|---|---|
+| Symbol | The exported name. |
+| Kind | `function`, `class`, `type`, `interface`, `const`, `enum`, or `re-export`. |
+| Source | Path and line number in the codebase. Click to jump to the source on GitHub. |
 
-For the full reference, see [Library API → Quick example](/docs/api/#quick-example).
+## Categories
+
+The exports are grouped by module:
+
+- **Agents** — `SecurityAgent`, `PerformanceAgent`, `StyleAgent`, etc.
+- **Providers** — `AnthropicProvider`, `OpenAIProvider`, `OllamaProvider`, `OpenAICompatibleProvider`, `ProviderRouter`.
+- **Orchestrator** — `Orchestrator`, `dedupeFindings`, `runParallel`, `consensusScore`, etc.
+- **Output** — `TextFormatter`, `JsonFormatter`, `SarifFormatter`, `MarkdownFormatter`, `HtmlFormatter`, `JUnitFormatter`.
+- **Cache** — `MemoryCache`, `FileCache`.
+- **Registry** — `AgentRegistry`, `ProviderRegistry`.
+- **Utilities** — `RateLimiter`, `Semaphore`, `Mutex`, `EventBus`, `Stopwatch`, `Histogram`, `LogBuffer`, `TokenTally`, etc.
+- **Policies** — `CircuitBreaker`, `retry`, `withRetries`, `RetryPolicy`.
+- **Types** — All the request, response, finding, and config types.
