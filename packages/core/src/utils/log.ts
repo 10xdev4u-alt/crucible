@@ -17,7 +17,12 @@ export class LogBuffer {
   }
 
   log(level: LogLine['level'], message: string, context?: Record<string, unknown>): LogLine {
-    const line: LogLine = { level, message, timestamp: Date.now(), ...(context ? { context } : {}) };
+    const line: LogLine = {
+      level,
+      message,
+      timestamp: Date.now(),
+      ...(context ? { context } : {}),
+    };
     this.buffer.push(line);
     for (const l of this.listeners) l(line);
     return line;
