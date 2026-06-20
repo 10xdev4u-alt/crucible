@@ -156,7 +156,6 @@ export function cmdCompletion(
   console.log(`Wrote ${out}`);
   console.log(`\nTo enable, source it in your shell config:`);
   if (shell === 'bash') console.log(`  source ${out}`);
-  if (shell === 'zsh') console.log(`  # Add to your fpath:  fpath=(${out:h} $fpath)`);
-  if (shell === 'fish') console.log(`  # Copy to ~/.config/fish/completions/${out}`);
+  if (shell === 'zsh') console.log(`  # Add to your fpath:  fpath=($(dirname ${out}) $fpath)`);
   return 0;
 }
