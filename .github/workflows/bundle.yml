@@ -1,0 +1,45 @@
+name: Bundle
+
+on:
+  push:
+    tags: ['v*']
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    name: Build single-file bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm --filter @crucible/core run build
+          pnpm --filter @crucible/cli run build
+      - name: Bundle CLI with esbuild
+        run: |
+          npx esbuild packages/cli/src/index.ts \
+            --bundle \
+            --platform=node \
+            --target=node22 \
+            --format=esm \
+            --outfile=dist/crucible.mjs \
+            --banner:js="#!/usr/bin/env node" \
+            --external:@crucible/core
+      - name: Make executable
+        run: chmod +x dist/crucible.mjs
+      - name: Test the bundle
+        run: node dist/crucible.mjs --version
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crucible-bundle
+          path: dist/crucible.mjs
