@@ -26,14 +26,15 @@ jobs:
           pnpm --filter @crucible/cli run build
       - name: Bundle CLI with esbuild
         run: |
+          echo '#!/usr/bin/env node' > dist/crucible.mjs
           npx esbuild packages/cli/src/index.ts \
             --bundle \
             --platform=node \
             --target=node22 \
             --format=esm \
-            --outfile=dist/crucible.mjs \
-            --banner:js="#!/usr/bin/env node" \
-            --external:@crucible/core
+            --outfile=dist/crucible.tmp.mjs
+          cat dist/crucible.tmp.mjs >> dist/crucible.mjs
+          rm dist/crucible.tmp.mjs
       - name: Make executable
         run: chmod +x dist/crucible.mjs
       - name: Test the bundle
