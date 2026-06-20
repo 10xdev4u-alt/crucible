@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  FINDING_CATEGORIES,
-  findingAtSeverity,
-  hasFix,
-  type Finding,
-} from './finding';
+import { FINDING_CATEGORIES, type Finding, findingAtSeverity, hasFix } from './finding.js';
 
 const baseFinding = (overrides: Partial<Finding> = {}): Finding => ({
   id: 'f1',

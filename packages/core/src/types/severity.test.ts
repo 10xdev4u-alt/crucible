@@ -4,9 +4,9 @@ import {
   maxSeverity,
   SEVERITY_LEVELS,
   SEVERITY_WEIGHT,
-  severityAtLeast,
   type SeverityLevel,
-} from './severity';
+  severityAtLeast,
+} from './severity.js';
 
 describe('severity', () => {
   describe('SEVERITY_LEVELS', () => {

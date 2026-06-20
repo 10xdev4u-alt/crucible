@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
-  changeSetCount,
-  fileChangeCount,
-  hunkChangeCount,
   type ChangeSet,
+  changeSetCount,
   type FileDiff,
+  fileChangeCount,
   type Hunk,
-} from './file-diff';
+  hunkChangeCount,
+} from './file-diff.js';
 
 const makeHunk = (lines: Array<{ kind: 'add' | 'remove' | 'context'; content: string }>): Hunk => ({
   oldStart: 1,

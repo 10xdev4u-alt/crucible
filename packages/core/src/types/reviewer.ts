@@ -1,5 +1,5 @@
-import type { Finding } from './finding';
-import type { SeverityLevel } from './severity';
+import type { Finding } from './finding.js';
+import type { SeverityLevel } from './severity.js';
 
 /** The contract every reviewer (specialized agent) implements. */
 export interface Reviewer {

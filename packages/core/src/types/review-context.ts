@@ -1,6 +1,6 @@
-import type { ChangeSet } from './file-diff';
-import type { Finding } from './finding';
-import type { ReviewRequest } from './review-request';
+import type { ChangeSet } from './file-diff.js';
+import type { Finding } from './finding.js';
+import type { ReviewRequest } from './review-request.js';
 
 /** Information about the project being reviewed. */
 export interface ProjectInfo {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { ReviewRequest } from './review-request';
+import type { ReviewRequest } from './review-request.js';
 
 describe('review-request', () => {
   it('constructs a basic request', () => {

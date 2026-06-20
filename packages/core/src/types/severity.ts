@@ -24,9 +24,7 @@ export function severityAtLeast(a: SeverityLevel, b: SeverityLevel): boolean {
 
 /** Returns true if the given string is a valid severity level. */
 export function isSeverityLevel(value: unknown): value is SeverityLevel {
-  return (
-    typeof value === 'string' && (SEVERITY_LEVELS as readonly string[]).includes(value)
-  );
+  return typeof value === 'string' && (SEVERITY_LEVELS as readonly string[]).includes(value);
 }
 
 /** Returns the more severe of two severity levels. */

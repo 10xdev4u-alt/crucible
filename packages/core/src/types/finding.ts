@@ -1,4 +1,4 @@
-import type { SeverityLevel } from './severity';
+import type { SeverityLevel } from './severity.js';
 
 /** A location within a file. Line is 1-based, column is 0-based. */
 export interface FileLocation {
@@ -73,7 +73,9 @@ export function findingAtSeverity(finding: Finding, level: SeverityLevel): boole
     critical: 10,
     blocker: 25,
   };
-  return weights[finding.severity] >= weights[level];
+  const a = weights[finding.severity] ?? 0;
+  const b = weights[level] ?? 0;
+  return a >= b;
 }
 
 /** Returns true if the finding has an actionable fix. */

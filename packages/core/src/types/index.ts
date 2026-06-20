@@ -5,14 +5,15 @@
  * agents, providers, and formatters. Anything imported from
  * `@crucible/core/types` should be sourced from here.
  */
-export * from './severity';
-export * from './finding';
-export * from './file-diff';
-export * from './review-request';
-export * from './review-result';
-export * from './review-context';
-export * from './agent';
-export * from './reviewer';
-export * from './provider';
-export * from './config';
-export * from './error';
+
+export * from './agent.js';
+export * from './config.js';
+export * from './error.js';
+export * from './file-diff.js';
+export * from './finding.js';
+export * from './provider.js';
+export * from './review-context.js';
+export * from './review-request.js';
+export * from './review-result.js';
+export * from './reviewer.js';
+export * from './severity.js';

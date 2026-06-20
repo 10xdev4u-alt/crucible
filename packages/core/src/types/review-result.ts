@@ -1,5 +1,4 @@
-import type { Finding } from './finding';
-import type { ReviewRequest } from './review-request';
+import type { Finding } from './finding.js';
 
 /** Statistics about a single agent's contribution to a review. */
 export interface AgentStats {

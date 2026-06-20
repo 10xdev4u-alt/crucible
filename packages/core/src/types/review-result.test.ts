@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import {
-  countByAgent,
-  countByCategory,
-  countBySeverity,
-  type Finding,
-} from './review-result';
+import type { Finding } from './finding.js';
+import { countByAgent, countByCategory, countBySeverity } from './review-result.js';
 
 const mk = (overrides: Partial<Finding>): Finding => ({
   id: 'x',
@@ -32,7 +28,11 @@ describe('review-result', () => {
 
   describe('countByCategory', () => {
     it('groups findings by category', () => {
-      const fs = [mk({ category: 'security' }), mk({ category: 'security' }), mk({ category: 'style' })];
+      const fs = [
+        mk({ category: 'security' }),
+        mk({ category: 'security' }),
+        mk({ category: 'style' }),
+      ];
       expect(countByCategory(fs)).toEqual({ security: 2, style: 1 });
     });
   });

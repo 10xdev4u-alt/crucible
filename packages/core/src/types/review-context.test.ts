@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { fileCount, hasChanges, type ReviewContext } from './review-context';
+import { fileCount, hasChanges, type ReviewContext } from './review-context.js';
 
 const baseCtx = (overrides: Partial<ReviewContext> = {}): ReviewContext => ({
   request: {
@@ -21,7 +21,9 @@ describe('review-context', () => {
     it('returns false when the change set is empty', () => {
       expect(
         hasChanges(
-          baseCtx({ changeSet: { base: 'a', head: 'b', files: [], totalAdditions: 0, totalDeletions: 0 } }),
+          baseCtx({
+            changeSet: { base: 'a', head: 'b', files: [], totalAdditions: 0, totalDeletions: 0 },
+          }),
         ),
       ).toBe(false);
     });
@@ -33,7 +35,16 @@ describe('review-context', () => {
             changeSet: {
               base: 'a',
               head: 'b',
-              files: [{ path: 'a.ts', kind: 'modified', isBinary: false, hunks: [], additions: 1, deletions: 0 }],
+              files: [
+                {
+                  path: 'a.ts',
+                  kind: 'modified',
+                  isBinary: false,
+                  hunks: [],
+                  additions: 1,
+                  deletions: 0,
+                },
+              ],
               totalAdditions: 1,
               totalDeletions: 0,
             },
@@ -56,8 +67,22 @@ describe('review-context', () => {
               base: 'a',
               head: 'b',
               files: [
-                { path: 'a.ts', kind: 'modified', isBinary: false, hunks: [], additions: 1, deletions: 0 },
-                { path: 'b.ts', kind: 'modified', isBinary: false, hunks: [], additions: 1, deletions: 0 },
+                {
+                  path: 'a.ts',
+                  kind: 'modified',
+                  isBinary: false,
+                  hunks: [],
+                  additions: 1,
+                  deletions: 0,
+                },
+                {
+                  path: 'b.ts',
+                  kind: 'modified',
+                  isBinary: false,
+                  hunks: [],
+                  additions: 1,
+                  deletions: 0,
+                },
               ],
               totalAdditions: 2,
               totalDeletions: 0,

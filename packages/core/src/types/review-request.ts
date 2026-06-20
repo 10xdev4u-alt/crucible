@@ -1,4 +1,4 @@
-import type { ChangeSet } from './file-diff';
+import type { ChangeSet } from './file-diff.js';
 
 /** What part of the codebase to review. */
 export type ReviewTarget =

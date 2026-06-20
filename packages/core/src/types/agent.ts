@@ -1,5 +1,5 @@
-import type { Finding } from './finding';
-import type { ReviewContext } from './review-context';
+import type { Finding } from './finding.js';
+import type { ReviewContext } from './review-context.js';
 
 /** Information about an agent. */
 export interface AgentInfo {
