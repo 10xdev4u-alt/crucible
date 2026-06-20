@@ -2,7 +2,6 @@
 import { resolve } from 'node:path';
 import { FileWatcher, type Format, getFormatter, Orchestrator } from '@crucible/core';
 import { getList, getString } from '../argv.js';
-import { cmdReview } from './review.js';
 
 export async function cmdWatch(
   positionals: string[],
