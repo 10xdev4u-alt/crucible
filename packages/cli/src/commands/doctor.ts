@@ -2,7 +2,6 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { getString } from '../argv.js';
 
 interface Check {
   name: string;
@@ -93,7 +92,12 @@ export async function cmdDoctor(positionals: string[]): Promise<number> {
     await fetch('https://api.anthropic.com', { method: 'HEAD', signal: AbortSignal.timeout(5000) });
     checks.push({ name: 'Network', ok: true, message: 'Can reach api.anthropic.com' });
   } catch {
-    checks.push({ name: 'Network', ok: false, message: 'Cannot reach api.anthropic.com', fix: 'Check your internet connection' });
+    checks.push({
+      name: 'Network',
+      ok: false,
+      message: 'Cannot reach api.anthropic.com',
+      fix: 'Check your internet connection',
+    });
   }
 
   // Config validation (if config exists)
