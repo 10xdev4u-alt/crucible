@@ -26,6 +26,7 @@ jobs:
           pnpm --filter @crucible/cli run build
       - name: Bundle CLI with esbuild
         run: |
+          mkdir -p dist
           echo '#!/usr/bin/env node' > dist/crucible.mjs
           npx esbuild packages/cli/src/index.ts \
             --bundle \
