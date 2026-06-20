@@ -14,7 +14,9 @@ export function stableStringify(value: unknown): string {
     return `Date(${value.toISOString()})`;
   }
   if (value instanceof Map) {
-    const entries = [...value.entries()].map(([k, v]) => `${stableStringify(k)}=>${stableStringify(v)}`);
+    const entries = [...value.entries()].map(
+      ([k, v]) => `${stableStringify(k)}=>${stableStringify(v)}`,
+    );
     return `Map(${entries.join(',')})`;
   }
   if (value instanceof Set) {
