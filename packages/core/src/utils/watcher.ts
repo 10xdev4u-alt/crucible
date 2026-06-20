@@ -63,7 +63,7 @@ export class FileWatcher {
     this.walk(this.root);
   }
 
-  private walk(dir: string): void {
+  private walk(dir: string, target: Map<string, FileState>): void {
     let entries: import('node:fs').Dirent[];
     try {
       entries = readdirSync(dir, { withFileTypes: true });
@@ -73,17 +73,17 @@ export class FileWatcher {
     for (const entry of entries) {
       const p = join(dir, entry.name);
       if (this.ignore && this.ignore(p)) continue;
-      if (entry.isDirectory()) this.walk(p);
-      else if (entry.isFile()) this.record(p);
+      if (entry.isDirectory()) this.walk(p, target);
+      else if (entry.isFile()) this.record(p, target);
     }
   }
 
-  private record(p: string): void {
+  private record(p: string, target: Map<string, FileState>): void {
     try {
       const st = statSync(p);
-      this.state.set(p, { mtimeMs: st.mtimeMs, size: st.size });
+      target.set(p, { mtimeMs: st.mtimeMs, size: st.size });
     } catch {
-      this.state.delete(p);
+      target.delete(p);
     }
   }
 
@@ -95,21 +95,23 @@ export class FileWatcher {
       }
       return;
     }
-    const seen = new Set<string>();
-    this.walk(this.root);
-    for (const [p, s] of this.state) seen.add(p);
-    const previous = new Set(this.state.keys());
-    for (const p of seen) {
-      if (!previous.has(p)) {
+    const fresh = new Map<string, FileState>();
+    this.walk(this.root, fresh);
+    const previous = new Map(this.state);
+    for (const [p, s] of fresh) {
+      const old = previous.get(p);
+      if (!old) {
         this.emit({ kind: 'add', path: p, timestamp: Date.now() });
+      } else if (old.mtimeMs !== s.mtimeMs || old.size !== s.size) {
+        this.emit({ kind: 'change', path: p, timestamp: Date.now() });
       }
     }
-    for (const p of previous) {
-      if (!seen.has(p)) {
+    for (const p of previous.keys()) {
+      if (!fresh.has(p)) {
         this.emit({ kind: 'remove', path: p, timestamp: Date.now() });
-        this.state.delete(p);
       }
     }
+    this.state = fresh;
   }
 
   private emit(event: WatchEvent): void {
