@@ -10,6 +10,7 @@ export * from './log.js';
 export * from './logger.js';
 export * from './mutex.js';
 export * from './objects.js';
+export * from './pqueue.js';
 export * from './rate-limit.js';
 export * from './retry.js';
 export * from './sandbox.js';
