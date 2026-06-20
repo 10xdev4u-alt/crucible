@@ -4,7 +4,9 @@ export class Sandbox {
   private readonly maxMemoryMb: number;
   private readonly allowedEnv: ReadonlySet<string>;
 
-  constructor(options: { timeoutMs?: number; maxMemoryMb?: number; allowedEnv?: readonly string[] } = {}) {
+  constructor(
+    options: { timeoutMs?: number; maxMemoryMb?: number; allowedEnv?: readonly string[] } = {},
+  ) {
     this.timeoutMs = options.timeoutMs ?? 30_000;
     this.maxMemoryMb = options.maxMemoryMb ?? 512;
     this.allowedEnv = new Set(options.allowedEnv ?? []);
@@ -16,7 +18,10 @@ export class Sandbox {
     const result = await Promise.race([
       fn(),
       new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error(`Sandbox timeout after ${this.timeoutMs}ms`)), this.timeoutMs),
+        setTimeout(
+          () => reject(new Error(`Sandbox timeout after ${this.timeoutMs}ms`)),
+          this.timeoutMs,
+        ),
       ),
     ]);
     if (Date.now() - start > this.timeoutMs) {

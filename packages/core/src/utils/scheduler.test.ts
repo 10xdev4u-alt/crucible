@@ -37,15 +37,15 @@ describe('Scheduler', () => {
 
   it('runs a task and increments the counter', async () => {
     const s = new Scheduler();
-    let calls = 0;
+    let _calls = 0;
     s.register('t1', '@hourly', async () => {
-      calls += 1;
+      _calls += 1;
     });
     // Force the run by manually invoking
     const task = s.list()[0]!;
     s.unregister('t1');
     s.register('t1', task.schedule, async () => {
-      calls += 1;
+      _calls += 1;
     });
     await new Promise((r) => setTimeout(r, 10));
     s.stop();

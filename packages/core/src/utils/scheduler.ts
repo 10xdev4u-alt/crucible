@@ -10,12 +10,13 @@ export interface ScheduledTask {
   errors: number;
 }
 
-export interface ScheduleHandler {
-  (): Promise<void>;
-}
+export type ScheduleHandler = () => Promise<void>;
 
 export class Scheduler {
-  private readonly tasks = new Map<string, { task: ScheduledTask; handler: ScheduleHandler; timer?: NodeJS.Timeout }>();
+  private readonly tasks = new Map<
+    string,
+    { task: ScheduledTask; handler: ScheduleHandler; timer?: NodeJS.Timeout }
+  >();
 
   /** Register a recurring task. */
   register(id: string, schedule: Schedule, handler: ScheduleHandler): void {
