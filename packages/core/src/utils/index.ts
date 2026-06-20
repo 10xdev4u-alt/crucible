@@ -1,4 +1,6 @@
+export * from './grading.js';
 export * from './hash.js';
+export * from './histogram.js';
 export * from './rate-limit.js';
 export * from './sandbox.js';
 export * from './scheduler.js';
