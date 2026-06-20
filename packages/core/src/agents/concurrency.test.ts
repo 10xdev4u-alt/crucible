@@ -16,11 +16,13 @@ const mockProvider = (content: string): Provider => ({
     },
     models: [],
   }),
-  complete: vi.fn(async (_req: ProviderRequest): Promise<ProviderResponse> => ({
-    content,
-    model: 'm',
-    finishReason: 'stop',
-  })),
+  complete: vi.fn(
+    async (_req: ProviderRequest): Promise<ProviderResponse> => ({
+      content,
+      model: 'm',
+      finishReason: 'stop',
+    }),
+  ),
 });
 
 describe('ConcurrencyAgent', () => {
@@ -28,7 +30,11 @@ describe('ConcurrencyAgent', () => {
     const a = new ConcurrencyAgent(mockProvider('### Race condition [critical]\n**Message:** x'));
     const out = await a.review({
       context: {
-        request: { id: 'r1', target: { kind: 'files', paths: [] }, requestedAt: '2026-06-20T00:00:00Z' },
+        request: {
+          id: 'r1',
+          target: { kind: 'files', paths: [] },
+          requestedAt: '2026-06-20T00:00:00Z',
+        },
         project: { root: '/tmp' },
         env: {},
       },

@@ -16,11 +16,13 @@ const mockProvider = (content: string): Provider => ({
     },
     models: [],
   }),
-  complete: vi.fn(async (_req: ProviderRequest): Promise<ProviderResponse> => ({
-    content,
-    model: 'm',
-    finishReason: 'stop',
-  })),
+  complete: vi.fn(
+    async (_req: ProviderRequest): Promise<ProviderResponse> => ({
+      content,
+      model: 'm',
+      finishReason: 'stop',
+    }),
+  ),
 });
 
 describe('I18nAgent', () => {
@@ -28,7 +30,11 @@ describe('I18nAgent', () => {
     const a = new I18nAgent(mockProvider('### Hardcoded string [major]\n**Message:** x'));
     const out = await a.review({
       context: {
-        request: { id: 'r1', target: { kind: 'files', paths: [] }, requestedAt: '2026-06-20T00:00:00Z' },
+        request: {
+          id: 'r1',
+          target: { kind: 'files', paths: [] },
+          requestedAt: '2026-06-20T00:00:00Z',
+        },
         project: { root: '/tmp' },
         env: {},
       },

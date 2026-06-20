@@ -1,6 +1,6 @@
 import type { AgentInput } from '../types/agent.js';
 import type { Finding } from '../types/finding.js';
-import { BaseAgent, type LLMCaller, type PromptTemplate } from './base.js';
+import { BaseAgent, type PromptTemplate } from './base.js';
 import { parseStructuredFindings } from './parser.js';
 
 const SYSTEM_PROMPT = `You are the Crucible Error Handling agent. Review code for error handling issues.
@@ -58,10 +58,6 @@ const INFO: import('../types/agent.js').AgentInfo = {
 export class ErrorHandlingAgent extends BaseAgent {
   protected readonly agentInfo = INFO;
   protected readonly prompt = PROMPT;
-
-  constructor(caller: LLMCaller, defaultModel?: string) {
-    super(caller, defaultModel);
-  }
 
   protected override parseResponse(content: string): Finding[] {
     return parseStructuredFindings(content, this.agentInfo.id).map((f) => ({
