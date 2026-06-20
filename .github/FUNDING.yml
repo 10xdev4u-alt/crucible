@@ -1,0 +1,22 @@
+# Funding
+
+Crucible is developed by [princetheprogrammerbtw][gh] and
+contributors. If you find it useful, consider sponsoring:
+
+- [GitHub Sponsors][sponsor]
+- [Buy me a coffee][bmac]
+
+Funds go toward:
+
+- Continued maintenance and bug fixes
+- New agents and providers
+- Documentation and example configs
+- Server costs for the demo (planned)
+
+Every sponsor is listed in the [README][readme] and the project
+homepage. Thank you for your support!
+
+[gh]: https://github.com/10xdev4u-alt
+[sponsor]: https://github.com/sponsors/10xdev4u-alt
+[bmac]: https://www.buymeacoffee.com/10xdev4u
+[readme]: ../README.md
