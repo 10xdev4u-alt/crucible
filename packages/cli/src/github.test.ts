@@ -6,7 +6,8 @@ describe('GitHubCommenter', () => {
     vi.fn(async () => ({
       ok: response.status >= 200 && response.status < 300,
       status: response.status,
-      text: async () => (typeof response.body === 'string' ? response.body : JSON.stringify(response.body ?? {})),
+      text: async () =>
+        typeof response.body === 'string' ? response.body : JSON.stringify(response.body ?? {}),
       json: async () => response.body ?? {},
     })) as unknown as typeof fetch;
 
@@ -49,10 +50,7 @@ describe('formatPRComment', () => {
   });
 
   it('truncates long messages', () => {
-    const s = formatPRComment(
-      [{ severity: 'minor', title: 'x', message: 'y'.repeat(500) }],
-      1,
-    );
+    const s = formatPRComment([{ severity: 'minor', title: 'x', message: 'y'.repeat(500) }], 1);
     expect(s).toContain('...');
   });
 });
