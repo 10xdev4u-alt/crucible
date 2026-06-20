@@ -18,4 +18,5 @@ export * from './semaphore.js';
 export * from './stable-stringify.js';
 export * from './stopwatch.js';
 export * from './tokens.js';
+export * from './url.js';
 export * from './watcher.js';
