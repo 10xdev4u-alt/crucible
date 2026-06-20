@@ -2,8 +2,9 @@
 /**
  * A more thorough benchmark that tests with multiple agent counts.
  */
-import { AgentRegistry } from '../dist/registry/agent-registry.js';
+
 import { Orchestrator } from '../dist/orchestrator/orchestrator.js';
+import { AgentRegistry } from '../dist/registry/agent-registry.js';
 
 const buildFakeAgent = (id, delayMs, findingCount) => ({
   info: () => ({
@@ -61,7 +62,10 @@ const runCase = async (agentCount, parallelism, fileCount = 20) => {
   await orch.review(
     {
       id: 'b',
-      target: { kind: 'diff', change: { base: 'a', head: 'b', files, totalAdditions: fileCount, totalDeletions: 0 } },
+      target: {
+        kind: 'diff',
+        change: { base: 'a', head: 'b', files, totalAdditions: fileCount, totalDeletions: 0 },
+      },
       requestedAt: new Date().toISOString(),
     },
     { request: null, project: { root: '/tmp' }, env: {} },
@@ -82,7 +86,9 @@ const main = async () => {
       const ideal = 50; // 50ms per agent
       const serial = agentCount * ideal;
       const speedup = (serial / elapsed).toFixed(2);
-      console.log(`${String(agentCount).padStart(6)}  ${String(parallelism).padStart(11)}  ${String(elapsed + 'ms').padStart(7)}  ${speedup}x`);
+      console.log(
+        `${String(agentCount).padStart(6)}  ${String(parallelism).padStart(11)}  ${String(`${elapsed}ms`).padStart(7)}  ${speedup}x`,
+      );
     }
   }
 };

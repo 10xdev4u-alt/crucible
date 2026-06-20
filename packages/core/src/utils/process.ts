@@ -16,7 +16,9 @@ export function hasCommand(cmd: string): boolean {
 /** Get the version of a command, or undefined. */
 export function getVersion(cmd: string, versionFlag = '--version'): string | undefined {
   try {
-    return execSync(`${cmd} ${versionFlag}`, { encoding: 'utf8' }).trim().split('\n')[0] ?? undefined;
+    return (
+      execSync(`${cmd} ${versionFlag}`, { encoding: 'utf8' }).trim().split('\n')[0] ?? undefined
+    );
   } catch {
     return undefined;
   }

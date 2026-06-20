@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { existsSync, readFileSync, statSync } from 'node:fs';
 // @ts-check
 /**
  * A small dev server for the docs site.
@@ -6,10 +7,8 @@
  * Usage: tsx scripts/serve.ts [port]
  */
 import { createServer } from 'node:http';
-import { readFileSync, statSync, existsSync } from 'node:fs';
-import { join, extname, resolve } from 'node:path';
+import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = resolve(__dirname, '..', 'dist');

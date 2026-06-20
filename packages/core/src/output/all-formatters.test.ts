@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { TextFormatter } from './text.js';
 import type { ReviewResult } from '../types/review-result.js';
-import { JsonFormatter } from './json.js';
-import { SarifFormatter } from './sarif.js';
-import { MarkdownFormatter } from './markdown.js';
-import { JUnitFormatter } from './junit.js';
-import { HtmlFormatter } from './html.js';
 import { CsvFormatter } from './csv.js';
 import { GitLabFormatter } from './gitlab.js';
-import { formatResult, getFormatter, type Format } from './index.js';
+import { HtmlFormatter } from './html.js';
+import { type Format, formatResult, getFormatter } from './index.js';
+import { JsonFormatter } from './json.js';
+import { JUnitFormatter } from './junit.js';
+import { MarkdownFormatter } from './markdown.js';
+import { SarifFormatter } from './sarif.js';
+import { TextFormatter } from './text.js';
 
 const baseResult = (overrides: Partial<ReviewResult> = {}): ReviewResult => ({
   id: 'r1',
@@ -83,7 +83,16 @@ describe('getFormatter returns the right class', () => {
 });
 
 describe('Each formatter is pure and deterministic', () => {
-  for (const format of ['text', 'json', 'sarif', 'markdown', 'html', 'junit', 'csv', 'gitlab'] as Format[]) {
+  for (const format of [
+    'text',
+    'json',
+    'sarif',
+    'markdown',
+    'html',
+    'junit',
+    'csv',
+    'gitlab',
+  ] as Format[]) {
     it(`${format} produces the same output for the same input`, () => {
       const r = baseResult();
       const a = formatResult(format, r);
