@@ -6,8 +6,10 @@ const BUILT_IN_AGENTS = [
     name: 'Security Reviewer',
     categories: ['security', 'dependency', 'error-handling'],
   },
+  { id: 'secrets', name: 'Secrets Detection Reviewer', categories: ['security'] },
   { id: 'performance', name: 'Performance Reviewer', categories: ['performance', 'concurrency'] },
   { id: 'style', name: 'Style Reviewer', categories: ['style', 'maintainability'] },
+  { id: 'naming', name: 'Naming Reviewer', categories: ['style', 'maintainability'] },
   { id: 'architecture', name: 'Architecture Reviewer', categories: ['architecture'] },
   { id: 'accessibility', name: 'Accessibility Reviewer', categories: ['accessibility'] },
   { id: 'dependency', name: 'Dependency Reviewer', categories: ['dependency', 'compatibility'] },
@@ -18,6 +20,27 @@ const BUILT_IN_AGENTS = [
     categories: ['api-contract', 'compatibility'],
   },
   { id: 'documentation', name: 'Documentation Reviewer', categories: ['documentation'] },
+  { id: 'i18n', name: 'i18n Reviewer', categories: ['i18n'] },
+  {
+    id: 'observability',
+    name: 'Observability Reviewer',
+    categories: ['observability', 'error-handling'],
+  },
+  {
+    id: 'concurrency',
+    name: 'Concurrency Reviewer',
+    categories: ['concurrency', 'data-integrity'],
+  },
+  {
+    id: 'error-handling',
+    name: 'Error Handling Reviewer',
+    categories: ['error-handling', 'reliability'],
+  },
+  {
+    id: 'data-integrity',
+    name: 'Data Integrity Reviewer',
+    categories: ['data-integrity', 'reliability'],
+  },
 ];
 
 export function cmdAgents(flags: Record<string, string | boolean | string[]>): number {
