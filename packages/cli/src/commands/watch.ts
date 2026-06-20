@@ -1,14 +1,18 @@
 /** `crucible watch` — continuously review on file changes. */
-import { resolve } from 'node:path';
+
 import { readFileSync } from 'node:fs';
-import { FileWatcher, getFormatter, type Format, type ReviewResult } from '@crucible/core';
+import { resolve } from 'node:path';
+import { FileWatcher, type Format, getFormatter, type ReviewResult } from '@crucible/core';
 import { getList, getString } from '../argv.js';
 import { cmdReview } from './review.js';
 
-export async function cmdWatch(positionals: string[], flags: Record<string, string | boolean | string[]>): Promise<number> {
+export async function cmdWatch(
+  positionals: string[],
+  flags: Record<string, string | boolean | string[]>,
+): Promise<number> {
   const root = resolve(process.cwd(), positionals[0] ?? '.');
   const exclude = getList(flags, 'exclude');
-  const format = (getString(flags, 'format', 'text') as Format);
+  const format = getString(flags, 'format', 'text') as Format;
   const interval = Number.parseInt(getString(flags, 'interval', '1500'), 10);
 
   console.log(`crucible: watching ${root} for changes…`);
