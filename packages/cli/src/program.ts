@@ -1,6 +1,7 @@
 import { getBoolean, getString, parseArgs } from './argv.js';
 import { cmdAgents } from './commands/agents.js';
 import { cmdCache } from './commands/cache.js';
+import { cmdCheck } from './commands/check.js';
 import { cmdHook } from './commands/hook.js';
 import { cmdInit } from './commands/init.js';
 import { cmdReview } from './commands/review.js';
@@ -13,6 +14,7 @@ Usage: crucible <command> [options]
 
 Commands:
   review [path]    Review a directory, file, or diff
+  check [path]     Review and produce a PR summary (markdown + json)
   init             Initialize a .crucible.json config file
   agents           List available agents
   status [path]    Show repo status and pending changes
@@ -50,6 +52,8 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdStatus(rest);
     case 'cache':
       return cmdCache(rest, args.flags);
+    case 'check':
+      return cmdCheck(rest, args.flags);
     case 'hook':
       return cmdHook(rest);
     case 'version':
