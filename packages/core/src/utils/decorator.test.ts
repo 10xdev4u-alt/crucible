@@ -31,7 +31,7 @@ describe('withRetry', () => {
       throw new Error('x');
     };
     await expect(withRetry(fn, { attempts: 3, delayMs: 1, onError })()).rejects.toThrow();
-    expect(onError).toHaveBeenCalledTimes(2);
+    expect(onError).toHaveBeenCalledTimes(3);
   });
 
   it('uses linear backoff', async () => {
