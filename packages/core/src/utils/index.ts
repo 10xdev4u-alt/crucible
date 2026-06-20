@@ -6,6 +6,7 @@ export * from './hash.js';
 export * from './histogram.js';
 export * from './json.js';
 export * from './log.js';
+export * from './logger.js';
 export * from './mutex.js';
 export * from './objects.js';
 export * from './rate-limit.js';
