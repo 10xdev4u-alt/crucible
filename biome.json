@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -7,15 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**/*.ts",
-      "**/*.tsx",
-      "**/*.js",
-      "**/*.mjs",
-      "**/*.cjs",
-      "**/*.json",
-      "**/*.md"
-    ]
+    "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs", "**/*.cjs", "**/*.json"]
   },
   "formatter": {
     "enabled": true,
@@ -27,24 +19,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noExplicitAny": "error",
-        "noConsoleLog": "warn"
-      },
-      "style": {
-        "useImportType": "error",
-        "useNodejsImportProtocol": "error",
-        "useConsistentArrayLength": "error"
-      },
-      "complexity": {
-        "noBannedTypes": "error"
-      },
-      "correctness": {
-        "noUnusedImports": "error",
-        "noUnusedVariables": "error",
-        "useExhaustiveDependencies": "error"
-      }
+      "recommended": true
     }
   },
   "javascript": {

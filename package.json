@@ -16,5 +16,11 @@
     "format": "biome format --write .",
     "typecheck": "pnpm -r run typecheck",
     "clean": "pnpm -r exec rm -rf dist node_modules .tsbuildinfo"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }
