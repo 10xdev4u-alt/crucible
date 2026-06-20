@@ -2,6 +2,7 @@ import { getBoolean, getString, parseArgs } from './argv.js';
 import { cmdAgents } from './commands/agents.js';
 import { cmdCache } from './commands/cache.js';
 import { cmdCheck } from './commands/check.js';
+import { cmdCompletion } from './commands/completion.js';
 import { cmdDiff } from './commands/diff.js';
 import { cmdDryRun } from './commands/dry-run.js';
 import { cmdFix } from './commands/fix.js';
@@ -30,6 +31,7 @@ Commands:
   cache <cmd>      Manage the local cache (info, list, clear)
   hook install     Install a pre-commit hook
   schema [write]   Print the JSON schema for .crucible.json
+  completion <sh>  Generate shell completion script (bash, zsh, fish)
   version          Show the version
   help             Show this help
 
@@ -66,6 +68,8 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdCache(rest, args.flags);
     case 'check':
       return cmdCheck(rest, args.flags);
+    case 'completion':
+      return cmdCompletion(rest, args.flags);
     case 'diff':
       return cmdDiff(rest);
     case 'dry-run':
