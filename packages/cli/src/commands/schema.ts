@@ -1,7 +1,7 @@
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { zodToJsonSchema } from 'zod-to-json-schema';
 import { configSchema } from '@crucible/core';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 import { getString } from '../argv.js';
 
 const buildSchema = (): string => JSON.stringify(zodToJsonSchema(configSchema), null, 2);
