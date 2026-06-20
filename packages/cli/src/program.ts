@@ -4,6 +4,7 @@ import { cmdCache } from './commands/cache.js';
 import { cmdCheck } from './commands/check.js';
 import { cmdCompletion } from './commands/completion.js';
 import { cmdDiff } from './commands/diff.js';
+import { cmdDoctor } from './commands/doctor.js';
 import { cmdDryRun } from './commands/dry-run.js';
 import { cmdFix } from './commands/fix.js';
 import { cmdHook } from './commands/hook.js';
@@ -25,6 +26,7 @@ Commands:
   fix [path]       Review and auto-apply safe fixes
   trace [path]     Review with detailed per-agent timing
   diff [path]      Print the parsed git diff as JSON
+  doctor [path]    Check the environment for issues
   init             Initialize a .crucible.json config file
   agents           List available agents
   status [path]    Show repo status and pending changes
@@ -72,6 +74,8 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdCompletion(rest, args.flags);
     case 'diff':
       return cmdDiff(rest);
+    case 'doctor':
+      return cmdDoctor(rest);
     case 'dry-run':
       return cmdDryRun(rest, args.flags);
     case 'fix':
