@@ -60,10 +60,13 @@ Generated from the source code on every build. This page lists every exported sy
 | `DEFAULT_OPTIONS` | re-export | [packages/core/src/orchestrator/index.ts:2](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/orchestrator/index.ts#L2) |
 | `DEFAULT_OPTIONS` | CONST | [packages/core/src/orchestrator/orchestrator.ts:19](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/orchestrator/orchestrator.ts#L19) |
 | `DEFAULT_RETRY_POLICY` | CONST | [packages/core/src/policies/retry-policy.ts:15](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/policies/retry-policy.ts#L15) |
+| `defineAgentPlugin` | FUNCTION | [packages/core/src/plugins/loader.ts:66](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/plugins/loader.ts#L66) |
+| `definePlugin` | FUNCTION | [packages/core/src/plugins/loader.ts:61](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/plugins/loader.ts#L61) |
 | `DependencyAgent` | CLASS | [packages/core/src/agents/dependency.ts:54](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/dependency.ts#L54) |
 | `DependencyAgent` | re-export | [packages/core/src/agents/index.ts:6](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/index.ts#L6) |
 | `DiffLine` | INTERFACE | [packages/core/src/types/file-diff.ts:10](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/file-diff.ts#L10) |
 | `DiffLineKind` | TYPE | [packages/core/src/types/file-diff.ts:8](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/file-diff.ts#L8) |
+| `discoverPlugins` | FUNCTION | [packages/core/src/plugins/loader.ts:13](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/plugins/loader.ts#L13) |
 | `DocumentationAgent` | CLASS | [packages/core/src/agents/documentation.ts:55](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/documentation.ts#L55) |
 | `DocumentationAgent` | re-export | [packages/core/src/agents/index.ts:7](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/index.ts#L7) |
 | `ERROR_CODES` | CONST | [packages/core/src/types/error.ts:17](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/error.ts#L17) |
@@ -118,8 +121,14 @@ Generated from the source code on every build. This page lists every exported sy
 | `JUnitFormatter` | CLASS | [packages/core/src/output/junit.ts:14](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/output/junit.ts#L14) |
 | `LineRange` | INTERFACE | [packages/core/src/types/file-diff.ts:2](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/file-diff.ts#L2) |
 | `LLMCaller` | INTERFACE | [packages/core/src/agents/base.ts:11](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/base.ts#L11) |
+| `LoadedPlugin` | INTERFACE | [packages/core/src/plugins/loader.ts:6](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/plugins/loader.ts#L6) |
 | `LogBuffer` | CLASS | [packages/core/src/utils/log.ts:11](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/utils/log.ts#L11) |
 | `LogLine` | INTERFACE | [packages/core/src/utils/log.ts:4](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/utils/log.ts#L4) |
+| `LSPDiagnostic` | INTERFACE | [packages/core/src/lsp/server.ts:22](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/lsp/server.ts#L22) |
+| `LSPDiagnosticPublisher` | INTERFACE | [packages/core/src/lsp/server.ts:30](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/lsp/server.ts#L30) |
+| `LSPPosition` | INTERFACE | [packages/core/src/lsp/server.ts:12](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/lsp/server.ts#L12) |
+| `LSPRange` | INTERFACE | [packages/core/src/lsp/server.ts:17](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/lsp/server.ts#L17) |
+| `LSPServer` | CLASS | [packages/core/src/lsp/server.ts:45](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/lsp/server.ts#L45) |
 | `MarkdownFormatter` | CLASS | [packages/core/src/output/markdown.ts:5](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/output/markdown.ts#L5) |
 | `maxSeverity` | FUNCTION | [packages/core/src/types/severity.ts:31](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/severity.ts#L31) |
 | `MemoryCache` | re-export | [packages/core/src/cache/index.ts:2](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/cache/index.ts#L2) |
@@ -152,6 +161,7 @@ Generated from the source code on every build. This page lists every exported sy
 | `PerformanceAgent` | re-export | [packages/core/src/agents/index.ts:12](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/index.ts#L12) |
 | `PerformanceAgent` | CLASS | [packages/core/src/agents/performance.ts:55](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/performance.ts#L55) |
 | `pick` | FUNCTION | [packages/core/src/utils/objects.ts:27](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/utils/objects.ts#L27) |
+| `pluginInfo` | FUNCTION | [packages/core/src/plugins/loader.ts:71](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/plugins/loader.ts#L71) |
 | `pluralize` | FUNCTION | [packages/core/src/utils/format.ts:26](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/utils/format.ts#L26) |
 | `ProjectInfo` | INTERFACE | [packages/core/src/types/review-context.ts:6](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/types/review-context.ts#L6) |
 | `PromptTemplate` | INTERFACE | [packages/core/src/agents/base.ts:6](https://github.com/10xdev4u-alt/crucible/blob/main/packages/core/src/agents/base.ts#L6) |
