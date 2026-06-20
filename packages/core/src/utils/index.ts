@@ -4,6 +4,7 @@ export * from './format.js';
 export * from './grading.js';
 export * from './hash.js';
 export * from './histogram.js';
+export * from './json.js';
 export * from './log.js';
 export * from './mutex.js';
 export * from './objects.js';
