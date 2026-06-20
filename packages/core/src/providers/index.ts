@@ -1,4 +1,5 @@
 export { AnthropicProvider, type AnthropicProviderOptions } from './anthropic.js';
+export { GeminiProvider, type GeminiProviderOptions } from './gemini.js';
 export {
   FetchHttpClient,
   type HttpClient,
