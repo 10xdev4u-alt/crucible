@@ -14,7 +14,7 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "typecheck": "pnpm -r run typecheck",
+    "typecheck": "pnpm --filter @crucible/core run build && pnpm -r run typecheck",
     "clean": "pnpm -r exec rm -rf dist node_modules .tsbuildinfo"
   },
   "devDependencies": {
