@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+build/
+*.tsbuildinfo
+.turbo/
+
+# coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# misc
+.cache/
+.tmp/
+*.pid
+*.seed
+*.pid.lock
+.ts-node/
+.pgdata/
