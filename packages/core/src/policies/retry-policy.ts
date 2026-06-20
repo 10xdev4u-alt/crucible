@@ -30,7 +30,10 @@ export function backoffDelay(policy: RetryPolicy, attempt: number, jitter = 0.1)
 }
 
 /** Run a function with retries according to a policy. */
-export async function withRetries<T>(fn: () => Promise<T>, policy: RetryPolicy = DEFAULT_RETRY_POLICY): Promise<T> {
+export async function withRetries<T>(
+  fn: () => Promise<T>,
+  policy: RetryPolicy = DEFAULT_RETRY_POLICY,
+): Promise<T> {
   let lastError: unknown;
   for (let attempt = 0; attempt <= policy.maxRetries; attempt++) {
     try {

@@ -10,11 +10,12 @@
  *   # or
  *   tsx packages/core/bench/run.ts
  */
-import { AgentRegistry } from '../src/registry/agent-registry.js';
+
 import { Orchestrator } from '../src/orchestrator/orchestrator.js';
+import { AgentRegistry } from '../src/registry/agent-registry.js';
 import type { Agent, AgentInfo, AgentInput, AgentOutput } from '../src/types/agent.js';
-import type { Finding } from '../src/types/finding.js';
 import type { ChangeSet } from '../src/types/file-diff.js';
+import type { Finding } from '../src/types/finding.js';
 import type { ReviewRequest } from '../src/types/review-request.js';
 
 const buildFakeAgent = (id: string, delayMs: number, findingCount: number): Agent => {
@@ -83,7 +84,11 @@ const main = async () => {
     reg.register(buildFakeAgent(`bench-agent-${i}`, AGENT_DELAY_MS, FINDINGS_PER_AGENT));
   }
 
-  const orch = new Orchestrator(reg, { parallelism: PARALLELISM, timeoutMs: 30_000, retries: RETRIES });
+  const orch = new Orchestrator(reg, {
+    parallelism: PARALLELISM,
+    timeoutMs: 30_000,
+    retries: RETRIES,
+  });
   const request: ReviewRequest = {
     id: 'bench',
     target: { kind: 'diff', change: buildChangeSet(FILE_COUNT) },

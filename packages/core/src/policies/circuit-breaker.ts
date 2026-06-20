@@ -10,7 +10,13 @@ export class CircuitBreaker {
   private readonly cooldownMs: number;
   private readonly onStateChange?: (state: CircuitState) => void;
 
-  constructor(options: { failureThreshold?: number; cooldownMs?: number; onStateChange?: (s: CircuitState) => void } = {}) {
+  constructor(
+    options: {
+      failureThreshold?: number;
+      cooldownMs?: number;
+      onStateChange?: (s: CircuitState) => void;
+    } = {},
+  ) {
     this.failureThreshold = options.failureThreshold ?? 5;
     this.cooldownMs = options.cooldownMs ?? 30_000;
     if (options.onStateChange) this.onStateChange = options.onStateChange;
