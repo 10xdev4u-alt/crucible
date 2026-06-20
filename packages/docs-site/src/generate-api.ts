@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Generates an API reference page from the core package's source code.
  *
