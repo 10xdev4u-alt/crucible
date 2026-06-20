@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { ProviderInfo } from '../types/provider.js';
 import { ProviderRegistry } from '../registry/provider-registry.js';
+import type { ProviderInfo } from '../types/provider.js';
 import { ProviderRouter } from './router.js';
 
 const dummyProvider = (id: string, models: string[]) => ({
