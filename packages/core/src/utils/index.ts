@@ -1,4 +1,5 @@
 export * from './circular.js';
+export * from './decorator.js';
 export * from './event-bus.js';
 export * from './format.js';
 export * from './grading.js';
