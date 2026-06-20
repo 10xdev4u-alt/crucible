@@ -123,7 +123,7 @@ export class Orchestrator {
 
   private async runOne(
     agent: Agent,
-    request: ReviewRequest,
+    _request: ReviewRequest,
     context: ReviewContext,
   ): Promise<AgentOutput & { startedAt: string; finishedAt: string; error?: string }> {
     const startedAt = new Date().toISOString();
@@ -170,14 +170,14 @@ function applyConstraints(
     out = out.filter((f) => {
       const path = f.location?.file;
       if (!path) return true;
-      return !constraints.excludePaths!.some((p) => path.startsWith(p));
+      return !constraints.excludePaths?.some((p) => path.startsWith(p));
     });
   }
   if (constraints.includePaths && constraints.includePaths.length > 0) {
     out = out.filter((f) => {
       const path = f.location?.file;
       if (!path) return true;
-      return constraints.includePaths!.some((p) => path.startsWith(p));
+      return constraints.includePaths?.some((p) => path.startsWith(p));
     });
   }
   if (constraints.maxFindings && out.length > constraints.maxFindings) {

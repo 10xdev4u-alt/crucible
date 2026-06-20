@@ -183,7 +183,7 @@ export async function cmdReview(
   const orchestrator = new Orchestrator(agents, { parallelism: 4, timeoutMs: 60_000, retries: 1 });
   const result = await orchestrator.review(request, {
     request,
-    project: { root, name: (config?.['project'] as { name?: string } | undefined)?.name ?? '' },
+    project: { root, name: (config?.project as { name?: string } | undefined)?.name ?? '' },
     repository: { provider: 'local' },
     changeSet,
     env: { ...process.env } as Record<string, string>,

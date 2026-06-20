@@ -40,7 +40,7 @@ Commands:
 function cacheInfo(dir: string): number {
   let total = 0;
   let count = 0;
-  walk(dir, (p, st) => {
+  walk(dir, (_p, st) => {
     total += st.size;
     count += 1;
   });

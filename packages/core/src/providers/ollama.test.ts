@@ -11,7 +11,7 @@ describe('OllamaProvider', () => {
 
   it('defaults to localhost', () => {
     const p = new OllamaProvider({ httpClient: new InMemoryHttpClient() });
-    const expected = 'http://localhost:11434/v1/chat/completions';
+    const _expected = 'http://localhost:11434/v1/chat/completions';
     // Indirect: complete() will call the configured URL
     expect(p.info()).toBeDefined();
   });

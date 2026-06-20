@@ -32,7 +32,7 @@ export async function runParallel<T>(
       if (idx >= items.length) return;
       const start = Date.now();
       try {
-        const value = await withTimeout(items[idx]!(), options.timeoutMs, options.signal);
+        const value = await withTimeout(items[idx]?.(), options.timeoutMs, options.signal);
         results[idx] = { ok: true, value, durationMs: Date.now() - start, index: idx };
       } catch (err) {
         results[idx] = {
