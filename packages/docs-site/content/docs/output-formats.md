@@ -1,189 +1,157 @@
 ---
 title: Output formats
-description: text, JSON, SARIF, Markdown, HTML, JUnit
-order: 6
+description: All the ways Crucible can format your review
+order: 25
 category: Documentation
 ---
 
 # Output formats
 
-Crucible produces structured review reports in six formats. Choose the one that fits your pipeline.
+Crucible produces review results in many formats. Choose the one that fits your workflow.
 
-## `text`
+## Format comparison
 
-Default. Human-readable terminal output with ANSI colors.
+| Format | Best for | Human-readable | Machine-readable | CI integration |
+|---|---|---|---|---|
+| `text` | Terminal output, manual review | ✅ | ❌ | Manual |
+| `json` | Piping, scripting | ❌ | ✅ | Custom |
+| `sarif` | GitHub code scanning, code scanning tools | ❌ | ✅ | GitHub |
+| `markdown` | PR comments, documentation | ✅ | ✅ | GitHub PR |
+| `html` | Browser viewing, archiving | ✅ | ✅ | Artifact |
+| `junit` | CI test reports | ❌ | ✅ | Jenkins, GitLab |
+| `csv` | Spreadsheets, data analysis | ❌ | ✅ | Custom |
+| `gitlab` | GitLab Code Quality | ❌ | ✅ | GitLab |
 
-```text
-Crucible Review
-  result:    r1
-  request:   r-1781980430112
-  duration:  3.4s
-  score:     12.50
-  findings:  5
+## Choosing a format
 
-Findings
-  CRITICAL   SQL injection
-              category: security
-              location: src/db.ts:42
-              rule:     no-string-concat
-              Use parameterized queries.
-
-  MAJOR      N+1 query
-              category: performance
-              location: src/api/list.ts:28
-              Use a JOIN or IN clause.
+**For local development:**
+```bash
+crucible review                          # text (default)
+crucible review --format json | jq .    # parse with jq
 ```
 
-Disable colors for non-TTY output with `NO_COLOR=1` or `--no-color`.
-
-## `json`
-
-Machine-readable. The full `ReviewResult` object as JSON.
-
-```json
-{
-  "id": "r1",
-  "requestId": "r-1781980430112",
-  "findings": [
-    {
-      "id": "f1",
-      "agentId": "security",
-      "category": "security",
-      "severity": "critical",
-      "title": "SQL injection",
-      "message": "...",
-      "location": { "file": "src/db.ts", "line": 42 },
-      "ruleId": "no-string-concat",
-      "confidence": 0.95,
-      "createdAt": "2026-06-20T..."
-    }
-  ],
-  "consensusScore": 12.5,
-  "durationMs": 3400,
-  "agentStats": [...],
-  "errors": []
-}
+**For CI:**
+```bash
+crucible review --format sarif --output crucible.sarif
+crucible review --format junit --output junit.xml
+crucible review --format gitlab --output codequality.json
 ```
 
-Use for piping:
+**For PR comments:**
+```bash
+crucible check --summary crucible-summary.md
+# Then use crucible-github or the github CLI to post it
+```
+
+**For spreadsheets / analysis:**
+```bash
+crucible review --format csv --output findings.csv
+```
+
+**For browsers / archives:**
+```bash
+crucible review --format html --output review.html
+```
+
+## Format details
+
+### text
+
+Default. ANSI colors when stdout is a TTY, plain text otherwise. Sections:
+- Header with summary metrics
+- Per-finding details (severity, category, location, rule, confidence)
+- Optional verbose mode with per-agent stats
+
+Disable colors: `NO_COLOR=1` or `--no-color` (planned).
+
+### json
+
+Full `ReviewResult` as JSON. Pipe to `jq` for filtering:
 
 ```bash
-crucible review --format json | jq '.findings[] | select(.severity == "critical")'
+crucible review --format json | jq '[.findings[] | select(.severity == "critical")]'
 ```
 
-## `sarif`
+### sarif
 
-[SARIF 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/) for GitHub code scanning.
+[SARIF 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/) for GitHub code scanning and other static analysis tools.
 
-```json
-{
-  "version": "2.1.0",
-  "runs": [
-    {
-      "tool": { "driver": { "name": "crucible", ... } },
-      "results": [
-        {
-          "ruleId": "no-string-concat",
-          "level": "error",
-          "message": { "text": "SQL injection..." },
-          "locations": [
-            { "physicalLocation": { "artifactLocation": { "uri": "src/db.ts" }, "region": { "startLine": 42 } } }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
-Upload to GitHub code scanning:
-
+Upload to GitHub:
 ```yaml
-- name: Upload SARIF
-  if: always()
-  uses: github/codeql-action/upload-sarif@v3
+- uses: github/codeql-action/upload-sarif@v3
   with:
     sarif_file: crucible.sarif
 ```
 
-## `markdown`
+### markdown
 
-GitHub-flavored markdown report.
+GitHub-flavored markdown. Use for PR comments or documentation.
 
-```markdown
-# Crucible Review
-
-- **Result ID:** `r1`
-- **Request ID:** `r-1781980430112`
-- **Duration:** 3400ms
-- **Consensus score:** 12.50
-- **Findings:** 5
-
-## Findings
-
-### CRITICAL — SQL injection { #finding-f1 }
-
-> Use parameterized queries.
-
-- **Category:** security
-- **Agent:** `security`
-- **Location:** `src/db.ts:42`
-- **Rule:** `no-string-concat`
-- **Confidence:** 95%
+```bash
+crucible check --summary review.md
+# Or directly:
+crucible review --format markdown --output review.md
 ```
 
-Perfect for posting on PRs.
+### html
 
-## `html`
+Self-contained HTML report. Renders well in any browser, no external deps (besides fonts).
 
-A self-contained styled HTML report. Renders well in any browser, no external dependencies.
-
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Crucible Review — r1</title>
-  <style>...</style>
-</head>
-<body>
-  <h1>Crucible Review</h1>
-  <div class="summary">...</div>
-  <article class="finding">...</article>
-</body>
-</html>
+```bash
+crucible review --format html --output review.html
 ```
 
-Open in a browser or upload as a CI artifact.
+### junit
 
-## `junit`
+JUnit XML. Critical and blocker findings become `<failure>` elements.
 
-JUnit XML for CI test reporting. Critical and blocker findings become `<failure>` elements.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="crucible" tests="5" failures="1">
-  <testsuite name="r1" tests="5" failures="1">
-    <testcase classname="src/db.ts" name="critical: SQL injection">
-      <failure type="critical" message="SQL injection">
-        Use parameterized queries.
-      </failure>
-    </testcase>
-  </testsuite>
-</testsuites>
+```bash
+crucible review --format junit --output junit.xml
 ```
 
-Use with Jenkins, GitLab CI, CircleCI, or any tool that consumes JUnit XML.
+### csv
 
-## Choosing a format
+Spreadsheet-friendly. One row per finding.
 
-| Pipeline | Recommended format |
-|---|---|
-| Local dev | `text` |
-| CI status check | `text` + non-zero exit on critical |
-| GitHub PR comment | `markdown` (via `check` command) |
-| Code scanning | `sarif` |
-| Test reporting | `junit` |
-| Slack/Discord bot | `json` (format yourself) |
-| Documentation site | `html` |
-| Piping to `jq` | `json` |
+```bash
+crucible review --format csv --output findings.csv
+```
+
+Columns: `id,agent,category,severity,title,message,file,line,rule,confidence,createdAt`.
+
+### gitlab
+
+GitLab Code Quality report format. JSON array of issues.
+
+```bash
+crucible review --format gitlab --output codequality.json
+```
+
+GitLab auto-detects this file in CI.
+
+## Custom formatters
+
+Implement the `Formatter` interface:
+
+```ts
+import type { Formatter, ReviewResult } from "@crucible/core";
+
+class MyFormatter implements Formatter {
+  format(result: ReviewResult): string {
+    return `Found ${result.findings.length} issues`;
+  }
+}
+```
+
+Then register it:
+
+```ts
+import { getFormatter } from "@crucible/core";
+// ... or use it directly:
+const out = new MyFormatter().format(result);
+```
+
+## See also
+
+- [Reference → Output formats](/docs/output-formats)
+- [Library API → Formatters](/docs/api/#formatters)
