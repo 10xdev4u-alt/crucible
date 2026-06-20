@@ -1,4 +1,6 @@
 /** A small in-memory log buffer for keeping recent log lines in memory. */
+import { CircularBuffer } from './circular.js';
+
 export interface LogLine {
   level: 'debug' | 'info' | 'warn' | 'error';
   message: string;
