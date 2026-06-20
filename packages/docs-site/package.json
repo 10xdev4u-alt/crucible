@@ -1,0 +1,29 @@
+{
+  "name": "@crucible/docs-site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "dev": "tsx watch src/build.ts",
+    "serve": "node scripts/serve.mjs",
+    "test": "vitest run",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "marked": "^14.1.4",
+    "gray-matter": "^4.0.3",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/prismjs": "^1.26.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
