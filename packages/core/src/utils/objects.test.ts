@@ -27,9 +27,11 @@ describe('deepMerge', () => {
   });
 
   it('merges deep', () => {
-    expect(deepMerge({ a: { x: 1, y: 2 } }, { a: { y: 3, z: 4 } })).toEqual({
-      a: { x: 1, y: 3, z: 4 },
-    });
+    const merged = deepMerge<{ a: { x: number; y: number; z?: number } }>(
+      { a: { x: 1, y: 2 } },
+      { a: { y: 3, z: 4 } },
+    );
+    expect(merged).toEqual({ a: { x: 1, y: 3, z: 4 } });
   });
 
   it('overwrites arrays', () => {
