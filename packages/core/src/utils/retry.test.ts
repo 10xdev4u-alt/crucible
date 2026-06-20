@@ -23,9 +23,12 @@ describe('retry', () => {
 
   it('throws after exhausting retries', async () => {
     await expect(
-      retry(async () => {
-        throw new Error('always');
-      }, { retries: 2, baseMs: 1 }),
+      retry(
+        async () => {
+          throw new Error('always');
+        },
+        { retries: 2, baseMs: 1 },
+      ),
     ).rejects.toThrow('always');
   });
 
