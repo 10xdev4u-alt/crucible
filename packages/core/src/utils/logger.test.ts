@@ -21,7 +21,7 @@ describe('Logger', () => {
     });
     const child = root.child('orchestrator');
     child.info('hello');
-    expect(lines[0]).toContain('[root:orchestrator]');
+    expect(lines[0]).toContain('[orchestrator]');
     expect(lines[0]).toContain('hello');
   });
 
