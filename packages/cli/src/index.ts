@@ -4,13 +4,14 @@
  *
  * Run `crucible --help` to see available commands.
  */
-import { CLI_BANNER, CLI_BANNER_MINI, VERSION } from './banner.js';
+import { CLI_BANNER, CLI_BANNER_MINI } from './banner.js';
 import { run } from './program.js';
+import { cmdVersionLong } from './commands/version-long.js';
 
-// Show banner on version
+// Show banner + extended version on --version
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
   console.log(CLI_BANNER);
-  console.log(`v${VERSION}`);
+  cmdVersionLong();
   process.exit(0);
 }
 
