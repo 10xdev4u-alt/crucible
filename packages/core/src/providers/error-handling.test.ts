@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { AnthropicProvider } from './anthropic.js';
-import { OpenAIProvider } from './openai.js';
-import { OllamaProvider } from './ollama.js';
-import { OpenAICompatibleProvider } from './openai-compatible.js';
-import { GeminiProvider } from './gemini.js';
 import { BedrockProvider } from './bedrock.js';
+import { GeminiProvider } from './gemini.js';
 import { InMemoryHttpClient } from './http.js';
+import { OllamaProvider } from './ollama.js';
+import { OpenAIProvider } from './openai.js';
+import { OpenAICompatibleProvider } from './openai-compatible.js';
 
 const make200 = (body: unknown) => ({ status: 200, headers: {}, body });
 
@@ -13,7 +13,9 @@ describe('Provider error handling', () => {
   it('Anthropic returns content for a 200 response', async () => {
     const p = new AnthropicProvider({
       apiKey: 'k',
-      httpClient: new InMemoryHttpClient([make200({ content: [{ type: 'text', text: 'x' }], stop_reason: 'end_turn' } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({ content: [{ type: 'text', text: 'x' }], stop_reason: 'end_turn' } as never),
+      ]),
     });
     const r = await p.complete({ model: 'm', messages: [{ role: 'user', content: 'hi' }] });
     expect(r.content.length).toBeGreaterThan(0);
@@ -23,7 +25,11 @@ describe('Provider error handling', () => {
   it('OpenAI returns content for a 200 response', async () => {
     const p = new OpenAIProvider({
       apiKey: 'k',
-      httpClient: new InMemoryHttpClient([make200({ choices: [{ message: { content: 'x', role: 'assistant' }, finish_reason: 'stop' }] } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({
+          choices: [{ message: { content: 'x', role: 'assistant' }, finish_reason: 'stop' }],
+        } as never),
+      ]),
     });
     const r = await p.complete({ model: 'm', messages: [{ role: 'user', content: 'hi' }] });
     expect(r.content.length).toBeGreaterThan(0);
@@ -32,7 +38,11 @@ describe('Provider error handling', () => {
   it('Gemini returns content for a 200 response', async () => {
     const p = new GeminiProvider({
       apiKey: 'k',
-      httpClient: new InMemoryHttpClient([make200({ candidates: [{ content: { parts: [{ text: 'x' }] }, finishReason: 'STOP' }] } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({
+          candidates: [{ content: { parts: [{ text: 'x' }] }, finishReason: 'STOP' }],
+        } as never),
+      ]),
     });
     const r = await p.complete({ model: 'm', messages: [{ role: 'user', content: 'hi' }] });
     expect(r.content.length).toBeGreaterThan(0);
@@ -40,7 +50,9 @@ describe('Provider error handling', () => {
 
   it('Ollama returns content for a 200 response', async () => {
     const p = new OllamaProvider({
-      httpClient: new InMemoryHttpClient([make200({ choices: [{ message: { content: 'x' }, finish_reason: 'stop' }] } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({ choices: [{ message: { content: 'x' }, finish_reason: 'stop' }] } as never),
+      ]),
     });
     const r = await p.complete({ model: 'm', messages: [{ role: 'user', content: 'hi' }] });
     expect(r.content.length).toBeGreaterThan(0);
@@ -51,7 +63,9 @@ describe('Provider error handling', () => {
       id: 'x',
       name: 'x',
       models: [{ id: 'm' }],
-      httpClient: new InMemoryHttpClient([make200({ choices: [{ message: { content: 'x' }, finish_reason: 'stop' }] } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({ choices: [{ message: { content: 'x' }, finish_reason: 'stop' }] } as never),
+      ]),
     });
     const r = await p.complete({ model: 'm', messages: [{ role: 'user', content: 'hi' }] });
     expect(r.content.length).toBeGreaterThan(0);
@@ -60,9 +74,14 @@ describe('Provider error handling', () => {
   it('Bedrock (Anthropic) returns content for a 200 response', async () => {
     const p = new BedrockProvider({
       apiKey: 'k',
-      httpClient: new InMemoryHttpClient([make200({ content: [{ type: 'text', text: 'x' }] } as never)]),
+      httpClient: new InMemoryHttpClient([
+        make200({ content: [{ type: 'text', text: 'x' }] } as never),
+      ]),
     });
-    const r = await p.complete({ model: 'anthropic.claude-sonnet-4-5-20251022-v1:0', messages: [] });
+    const r = await p.complete({
+      model: 'anthropic.claude-sonnet-4-5-20251022-v1:0',
+      messages: [],
+    });
     expect(r.content.length).toBeGreaterThan(0);
   });
 
@@ -86,7 +105,9 @@ describe('Provider error handling', () => {
 
   it('Bedrock throws on unsupported model', async () => {
     const p = new BedrockProvider({ apiKey: 'k', httpClient: new InMemoryHttpClient([]) });
-    await expect(p.complete({ model: 'unknown.model-v1', messages: [] })).rejects.toThrow(/Unsupported Bedrock/);
+    await expect(p.complete({ model: 'unknown.model-v1', messages: [] })).rejects.toThrow(
+      /Unsupported Bedrock/,
+    );
   });
 
   it('Anthropic throws on 401', async () => {

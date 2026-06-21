@@ -18,6 +18,7 @@ export * from './retry.js';
 export * from './sandbox.js';
 export * from './scheduler.js';
 export * from './semaphore.js';
+export * from './semver.js';
 export * from './stable-stringify.js';
 export * from './stopwatch.js';
 export * from './tokens.js';
