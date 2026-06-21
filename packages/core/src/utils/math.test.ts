@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { deterministicPick, isPowerOfTwo, nextPowerOfTwo, chunk, count, sum, product, average, median, range } from './math.js';
+import {
+  average,
+  chunk,
+  count,
+  deterministicPick,
+  isPowerOfTwo,
+  median,
+  nextPowerOfTwo,
+  product,
+  range,
+  sum,
+} from './math.js';
 
 describe('math utilities', () => {
   describe('deterministicPick', () => {
@@ -37,7 +48,11 @@ describe('math utilities', () => {
   describe('chunk', () => {
     it('chunks an array', () => {
       expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);
-      expect(chunk([1, 2, 3, 4, 5, 6], 2)).toEqual([[1, 2], [3, 4], [5, 6]]);
+      expect(chunk([1, 2, 3, 4, 5, 6], 2)).toEqual([
+        [1, 2],
+        [3, 4],
+        [5, 6],
+      ]);
       expect(chunk([], 2)).toEqual([]);
     });
   });

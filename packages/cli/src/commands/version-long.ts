@@ -1,7 +1,7 @@
 /** `crucible version` — enhanced version command. */
 import { execSync } from 'node:child_process';
-import { readFileSync, existsSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { VERSION } from '../banner.js';
 
 interface PackageJson {

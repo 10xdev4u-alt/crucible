@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { findFiles, readFile, writeFile, FileInfo } from './fs.js';
+import { FileInfo, findFiles, readFile, writeFile } from './fs.js';
 
 describe('fs utilities', () => {
   describe('findFiles', () => {

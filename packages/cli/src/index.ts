@@ -5,8 +5,8 @@
  * Run `crucible --help` to see available commands.
  */
 import { CLI_BANNER, CLI_BANNER_MINI } from './banner.js';
-import { run } from './program.js';
 import { cmdVersionLong } from './commands/version-long.js';
+import { run } from './program.js';
 
 // Show banner + extended version on --version
 if (process.argv.includes('--version') || process.argv.includes('-v')) {

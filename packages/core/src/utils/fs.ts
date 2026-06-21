@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync, existsSync, statSync, readdirSync } from 'node:fs';
-import { join, dirname, relative, sep } from 'node:path';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join, relative, sep } from 'node:path';
 
 export interface FileInfo {
   path: string;
@@ -28,7 +28,8 @@ export function findFiles(
     }
     for (const entry of entries) {
       if (entry.name.startsWith('.') && entry.name !== '.crucible.json') continue;
-      if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === 'build') continue;
+      if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === 'build')
+        continue;
       const p = join(dir, entry.name);
       if (entry.isDirectory()) {
         if (options.includeDirs) {
@@ -49,7 +50,10 @@ export function findFiles(
 
 const globToRegex = (glob: string): RegExp => {
   // Simple glob: * matches anything except /, ** matches anything
-  const escaped = glob.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*');
+  const escaped = glob
+    .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*\*/g, '.*')
+    .replace(/\*/g, '[^/]*');
   return new RegExp(`^${escaped}$`);
 };
 
