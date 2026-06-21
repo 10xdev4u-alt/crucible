@@ -1,0 +1,43 @@
+# Crucible labeler config
+# See https://github.com/actions/labeler
+
+'feature':
+  - 'packages/core/src/agents/**'
+  - 'packages/core/src/providers/**'
+  - 'packages/core/src/output/**'
+  - 'packages/cli/src/commands/**'
+
+'bug':
+  - '**/*.bug'
+
+'docs':
+  - 'docs/**'
+  - 'packages/docs-site/content/**'
+  - '**/*.md'
+
+'tests':
+  - '**/*.test.ts'
+  - '**/*.test.mjs'
+
+'ci':
+  - '.github/**'
+
+'core':
+  - 'packages/core/**'
+
+'cli':
+  - 'packages/cli/**'
+
+'site':
+  - 'packages/docs-site/**'
+
+'examples':
+  - 'examples/**'
+
+'deps':
+  - 'package.json'
+  - 'pnpm-lock.yaml'
+  - 'pnpm-workspace.yaml'
+
+'chore':
+  - '**/*.md'
