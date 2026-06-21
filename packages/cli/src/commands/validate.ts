@@ -1,10 +1,13 @@
 /** `crucible validate` — validate the .crucible.json against the schema. */
-import { readFileSync, existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { configSchema } from '@crucible/core';
 import { getString } from '../argv.js';
 
-export function cmdValidate(positionals: string[], flags: Record<string, string | boolean | string[]>): number {
+export function cmdValidate(
+  positionals: string[],
+  flags: Record<string, string | boolean | string[]>,
+): number {
   const configPath = resolve(
     process.cwd(),
     positionals[0] ?? getString(flags, 'config', '.crucible.json'),
@@ -32,7 +35,11 @@ export function cmdValidate(positionals: string[], flags: Record<string, string 
   console.log(`✓ ${configPath} is valid`);
   console.log(`  ${result.data.agents.length} agents configured`);
   console.log(`  ${result.data.providers.length} providers configured`);
-  console.log(`  cache: ${result.data.cache.enabled ? `${result.data.cache.kind} (TTL ${result.data.cache.ttlSeconds}s)` : 'disabled'}`);
-  console.log(`  runtime: parallelism=${result.data.runtime.parallelism}, timeoutMs=${result.data.runtime.timeoutMs}, retries=${result.data.runtime.retries}`);
+  console.log(
+    `  cache: ${result.data.cache.enabled ? `${result.data.cache.kind} (TTL ${result.data.cache.ttlSeconds}s)` : 'disabled'}`,
+  );
+  console.log(
+    `  runtime: parallelism=${result.data.runtime.parallelism}, timeoutMs=${result.data.runtime.timeoutMs}, retries=${result.data.runtime.retries}`,
+  );
   return 0;
 }

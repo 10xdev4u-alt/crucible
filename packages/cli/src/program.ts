@@ -13,7 +13,9 @@ import { cmdReview } from './commands/review.js';
 import { cmdSchema } from './commands/schema.js';
 import { cmdStatus } from './commands/status.js';
 import { cmdTrace } from './commands/trace.js';
+import { cmdValidate } from './commands/validate.js';
 import { cmdVersion } from './commands/version.js';
+import { cmdWatch } from './commands/watch.js';
 
 const HELP = `crucible — multi-agent code review orchestrator
 
@@ -25,8 +27,10 @@ Commands:
   dry-run [path]   Review without writing any output
   fix [path]       Review and auto-apply safe fixes
   trace [path]     Review with detailed per-agent timing
+  watch [path]     Continuously review on file changes
   diff [path]      Print the parsed git diff as JSON
   doctor [path]    Check the environment for issues
+  validate [path]  Validate the .crucible.json config
   init             Initialize a .crucible.json config file
   agents           List available agents
   status [path]    Show repo status and pending changes
@@ -38,7 +42,7 @@ Commands:
   help             Show this help
 
 Common options:
-  --format <name>  Output format: text, json, sarif, markdown, html, junit
+  --format <name>  Output format: text, json, sarif, markdown, html, junit, csv, gitlab
   --output <file>  Write output to a file (default: stdout)
   --agents <ids>   Comma-separated list of agent ids to run
   --severity <lvls> Comma-separated severities to include
@@ -84,10 +88,14 @@ export async function run(argv: readonly string[]): Promise<number> {
       return cmdHook(rest);
     case 'schema':
       return cmdSchema(rest);
+    case 'validate':
+      return cmdValidate(rest, args.flags);
     case 'version':
     case '--version':
     case '-v':
       return cmdVersion();
+    case 'watch':
+      return cmdWatch(rest, args.flags);
     case 'help':
       console.log(HELP);
       return 0;
