@@ -36,7 +36,8 @@ describe('CLI binary', () => {
   it('prints version', async () => {
     if (!cliExists()) return;
     const { stdout } = await runCli(['--version']);
-    expect(stdout).toMatch(/v\d+\.\d+\.\d+/);
+    expect(stdout).toMatch(/\d+\.\d+\.\d+/);
+    expect(stdout).toContain('crucible');
   });
 
   it('prints available agents', async () => {
